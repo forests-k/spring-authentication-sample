@@ -1,7 +1,7 @@
 package jp.co.sample.domain.service
 
 import jp.co.sample.application.authentication.model.AuthenticationUserDetails
-import jp.co.sample.domain.repository.DummyUserRepository
+import jp.co.sample.domain.repository.UserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
 @Service("customUserDetailsService")
-class CustomUserDetailsService(private val userRepository: DummyUserRepository) : UserDetailsService {
+class CustomUserDetailsService(private val userRepository: UserRepository) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByMail(username)
