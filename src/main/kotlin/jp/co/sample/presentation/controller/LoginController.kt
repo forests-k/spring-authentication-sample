@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class LoginController {
 
-    @GetMapping(name = "/authenticate")
+    @GetMapping(name = "/authentication")
     fun invoke(): ResponseEntity<Object> {
     return ResponseEntity(HttpStatus.OK)
     }

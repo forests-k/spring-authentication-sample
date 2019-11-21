@@ -19,7 +19,7 @@ class CustomAuthenticationFailureHandler : AuthenticationFailureHandler {
     @Throws(IOException::class)
     override fun onAuthenticationFailure(request: HttpServletRequest?, response: HttpServletResponse?, exception: AuthenticationException?) {
 
-        log.info("authentication failed")
+        log.debug("authentication failed")
 
         response?.sendError(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.reasonPhrase)
     }

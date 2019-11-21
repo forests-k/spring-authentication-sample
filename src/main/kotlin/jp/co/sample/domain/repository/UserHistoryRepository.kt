@@ -1,12 +1,9 @@
 package jp.co.sample.domain.repository
 
-import jp.co.sample.domain.model.User
+import jp.co.sample.domain.model.UserHistory
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
-interface UserRepository : JpaRepository<User, Long> {
-
-    fun findByMail(mail: String): Optional<User>
+interface UserHistoryRepository : JpaRepository<UserHistory, Long> {
 }

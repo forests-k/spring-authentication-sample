@@ -14,14 +14,15 @@ class LoggingFilter : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
 
-        val start: Long = System.currentTimeMillis()
+        val start = System.currentTimeMillis()
         try {
-            log.info("start {} {}", request.method, request.requestURI)
+            log.info("[BEGIN] {} {}", request.method, request.requestURI)
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
-
+            log.error(e.localizedMessage)
+            throw e
         } finally {
-            log.info("end {}ms {} {}", (System.currentTimeMillis() - start), request.method, request.requestURI)
+            log.info("[END] {} {} {}ms status:{}", request.method, request.requestURI, (System.currentTimeMillis() - start), response.status)
         }
 
     }

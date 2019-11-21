@@ -1,6 +1,5 @@
 package jp.co.sample.application.filter
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import jp.co.sample.application.authentication.model.Credential
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class CustomUsernamePasswordAuthenticationFilter : UsernamePasswordAuthenticationFilter() {
+
     companion object {
         private val log = LoggerFactory.getLogger(CustomUsernamePasswordAuthenticationFilter::class.java)
     }
@@ -26,7 +26,7 @@ class CustomUsernamePasswordAuthenticationFilter : UsernamePasswordAuthenticatio
             throw AuthenticationServiceException("Authentication method not supported: " + request.method)
         }
 
-        var authRequest: UsernamePasswordAuthenticationToken? = null
+        var authRequest: UsernamePasswordAuthenticationToken?
         try {
             val sb = StringBuffer()
             val reader: BufferedReader = request.reader
@@ -48,6 +48,10 @@ class CustomUsernamePasswordAuthenticationFilter : UsernamePasswordAuthenticatio
             setDetails(request, UsernamePasswordAuthenticationToken("anymouse", ""))
         }
 
-        return authenticationManager.authenticate(authRequest)
+        try {
+            return authenticationManager.authenticate(authRequest)
+        } catch (e: IllegalArgumentException) {
+            throw AuthenticationServiceException("Authentication password is not HEX")
+        }
     }
 }

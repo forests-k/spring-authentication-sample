@@ -6,34 +6,29 @@ import jp.co.sample.application.authentication.CustomAuthenticationFailureHandle
 import jp.co.sample.application.authentication.CustomAuthenticationSuccessHandler
 import jp.co.sample.application.filter.CustomUsernamePasswordAuthenticationFilter
 import jp.co.sample.domain.service.CustomUserDetailsService
-import org.apache.catalina.util.RequestUtil
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import org.springframework.web.servlet.support.RequestContextUtils
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig(
-        @Autowired val customUserDetailService: CustomUserDetailsService,
-        @Autowired val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
-        @Autowired val customAccessDeniedHandler: CustomAccessDeniedHandler,
-        @Autowired val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
-        @Autowired val customAuthenticationFailureHandler: CustomAuthenticationFailureHandler,
-        @Autowired val passwordEncoder: PasswordEncoder
+        private val customUserDetailService: CustomUserDetailsService,
+        private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint,
+        private val customAccessDeniedHandler: CustomAccessDeniedHandler,
+        private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
+        private val customAuthenticationFailureHandler: CustomAuthenticationFailureHandler,
+        private val passwordEncoder: PasswordEncoder
 ) : WebSecurityConfigurerAdapter() {
 
     companion object {
@@ -90,9 +85,9 @@ class WebSecurityConfig(
         http.addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
 
         // リクエストごとに認証を行うようセッションポリシーをステートレスにする
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        //http
+        //.sessionManagement()
+        //.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         http.requestCache().requestCache(NullRequestCache())
     }
