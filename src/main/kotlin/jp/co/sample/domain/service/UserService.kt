@@ -1,6 +1,7 @@
 package jp.co.sample.domain.service
 
-import jp.co.sample.domain.model.User
+import jp.co.sample.domain.entity.*
+import jp.co.sample.domain.model.*
 import java.util.*
 
 interface UserService {
@@ -9,9 +10,9 @@ interface UserService {
 
     fun findAll(): List<User>
 
-    fun create(user: User): User
+    fun create(user: Users): User
 
-    fun update(id: Long, user: User): User
+    fun update(id: Long, user: Users): User
 
     fun delete(id: Long)
 }

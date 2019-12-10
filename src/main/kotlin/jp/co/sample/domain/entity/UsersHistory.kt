@@ -1,14 +1,13 @@
-package jp.co.sample.domain.model
+package jp.co.sample.domain.entity
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import java.io.Serializable
-import java.time.LocalDate
-import java.time.LocalDateTime
+import com.fasterxml.jackson.annotation.*
+import java.io.*
+import java.time.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "user_history")
-data class UserHistory(
+@Table(name = "users_history")
+data class UsersHistory(
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

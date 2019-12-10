@@ -1,7 +1,8 @@
 package jp.co.sample.presentation.controller
 
-import jp.co.sample.domain.model.User
-import jp.co.sample.domain.service.UserService
+import jp.co.sample.domain.entity.*
+import jp.co.sample.domain.model.*
+import jp.co.sample.domain.service.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,14 +12,14 @@ class UserController(private val userService: UserService) {
     fun findAll(): List<User> = userService.findAll()
 
     @PostMapping("/users")
-    fun create(@RequestBody user: User): User = userService.create(user)
+    fun create(@RequestBody user: Users): User = userService.create(user)
 
     @GetMapping("/users/{id}")
     fun findOne(@PathVariable id: Long): User = userService.findById(id).orElseThrow()
 
     @PutMapping("/users/{id}")
-    fun update(@PathVariable id: Long, @RequestBody user: User): User = userService.update(id, user)
+    fun update(@PathVariable id: Long, @RequestBody user: Users): User = userService.update(id, user)
 
-    @DeleteMapping("/user{id}")
+    @DeleteMapping("/user/{id}")
     fun delete(@PathVariable id: Long) = userService.delete(id)
 }

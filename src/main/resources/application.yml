@@ -21,6 +21,8 @@ spring:
       generate_statistics: false
     database-platform: org.hibernate.dialect.MySQLDialect
 
+  main:
+    lazy-initialization: true
 management:
   server:
     port: 8080
