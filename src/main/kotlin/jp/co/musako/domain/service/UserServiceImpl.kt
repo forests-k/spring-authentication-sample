@@ -24,8 +24,6 @@ class UserServiceImpl(
 
     override fun findAll(): List<User> {
         val userList = userRepository.findAll()
-        // passwordを隠蔽
-        userList.forEach { user -> user.password = "" }
         return userList.map { users -> users.convertToUser() }
     }
 
